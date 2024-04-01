@@ -11,9 +11,7 @@ public class Info extends Command {
 
     @Override
     public void handle(@NotNull String[] args) {
-        Message.sendMessage(" ", Message.LEVEL.Log);
         Message.sendMessage("Toggle: /mmtoggle", Message.LEVEL.Log);
         Message.sendMessage("Creator: imyanice, GitHub: Yan-Jobs", Message.LEVEL.Log);
-        Message.sendMessage(" ", Message.LEVEL.Log);
     }
 }

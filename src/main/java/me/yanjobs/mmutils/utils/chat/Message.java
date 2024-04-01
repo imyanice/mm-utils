@@ -1,11 +1,8 @@
 package me.yanjobs.mmutils.utils.chat;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class Message {
