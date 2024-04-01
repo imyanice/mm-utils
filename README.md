@@ -21,5 +21,3 @@ Use Weave-Manager to download MMUtils (might not be on the store atm, please use
 - Create a folder named Weave, put Weave-Loader and lunar-launcher-inject there.
 - Create a folder at `C:\Users\YOU\.weave\mods\` (or at `~/.weave/mods`) and put MMUtils there.
 - Launch Lunar Client using `lunar-launcher-inject.exe` (or `chmod +x lunar-launcher-inject && ./lunar-launcher-inject`)
-
-*this was coded on a windows machine, never again please*
