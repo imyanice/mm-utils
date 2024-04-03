@@ -112,6 +112,7 @@ public class MurdererFinder {
         final World world = (World) Minecraft.getMinecraft().theWorld;
         if (world != null && world != this.lastWorld) {
             MurdererFinder.murderers.clear();
+            MurdererFinder.detectives.clear();
             MMUtils.isInMMClassic = false;
             murderFound = false;
         }
