@@ -58,6 +58,8 @@ public class MurdererFinder {
                     }
                 }
                 if (!isInList && player.getName() != Minecraft.getMinecraft().thePlayer.getName()) {
+                    // 清空之前的murder id，再写入新的murder
+                    MurdererFinder.murderers.clear();
                     MurdererFinder.murderers.add(player.getName());
                     Message.sendMessage(player.getName(), Message.LEVEL.Murderer);
                 }
@@ -66,7 +68,7 @@ public class MurdererFinder {
                 final EntityPlayer murderer = Minecraft.getMinecraft().theWorld.getPlayerEntityByName((String) MurdererFinder.murderers.get(y));
                 if (murderer != null) {
                     GlStateManager.disableDepth();
-                    renderHitBox((Entity) murderer, new Color(255, 55, 55), (float) (10/Math.sqrt(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(murderer))), event.getPartialTicks());
+                    renderHitBox((Entity) murderer, new Color(255, 55, 55), (float) (10 / Math.sqrt(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(murderer))), event.getPartialTicks());
 
                     GlStateManager.enableDepth();
                 }
