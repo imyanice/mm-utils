@@ -11,16 +11,25 @@ public class Message {
         Detective,
         Log,
     }
+
     public static void sendMessage(@NotNull String message, LEVEL level) {
         switch (level) {
-            case Log -> {
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "MM> " + EnumChatFormatting.DARK_GRAY + message));
+            case Log: {
+                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
+                        EnumChatFormatting.DARK_AQUA + "MM> " + EnumChatFormatting.DARK_GRAY + message));
+                break;
             }
-            case Murderer -> {
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "MM> " + EnumChatFormatting.DARK_RED + message + EnumChatFormatting.DARK_GRAY + " is a murderer!"));
+            case Murderer: {
+                Minecraft.getMinecraft().thePlayer.addChatMessage(
+                        new ChatComponentText(EnumChatFormatting.DARK_AQUA + "MM> " + EnumChatFormatting.DARK_RED
+                                + message + EnumChatFormatting.DARK_GRAY + " is a murderer!"));
+                break;
             }
-            case Detective -> {
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "MM> " + EnumChatFormatting.DARK_AQUA + message + EnumChatFormatting.DARK_GRAY + " is a detective!"));
+            case Detective: {
+                Minecraft.getMinecraft().thePlayer.addChatMessage(
+                        new ChatComponentText(EnumChatFormatting.DARK_AQUA + "MM> " + EnumChatFormatting.DARK_AQUA
+                                + message + EnumChatFormatting.DARK_GRAY + " is a detective!"));
+                break;
             }
         }
     }

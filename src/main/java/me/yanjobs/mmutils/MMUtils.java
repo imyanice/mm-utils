@@ -1,26 +1,26 @@
 package me.yanjobs.mmutils;
 
-import me.yanjobs.mmutils.command.Info;
-import me.yanjobs.mmutils.command.MMToggle;
 import me.yanjobs.mmutils.events.ChatReceived;
+import me.yanjobs.mmutils.events.ChatSent;
 import me.yanjobs.mmutils.events.MurdererFinder;
 import me.yanjobs.mmutils.utils.config.Config;
-import net.weavemc.loader.api.ModInitializer;
-import net.weavemc.loader.api.command.CommandBus;
-import net.weavemc.loader.api.event.EventBus;
 
 import java.io.IOException;
 
+import net.weavemc.api.ModInitializer;
+import net.weavemc.api.event.EventBus;
+
 public class MMUtils implements ModInitializer {
     public static boolean isInMMClassic;
+    public static final String VERSION = "1.1.0";
     private static Config config;
+
     @Override
-    public void preInit() {
-        System.out.println("MMUtils successfully loaded!");
+    public void init() {
+        System.out.println("MMUtils v" + VERSION + " successfully loaded!");
         EventBus.subscribe(new MurdererFinder());
         EventBus.subscribe(new ChatReceived());
-        CommandBus.register(new MMToggle());
-        CommandBus.register(new Info());
+        EventBus.subscribe(new ChatSent());
         try {
             config = new Config();
             config.createConfigFile();
@@ -28,9 +28,11 @@ public class MMUtils implements ModInitializer {
             throw new RuntimeException(e);
         }
     }
+
     public static Config getConfig() {
         return config;
     }
+
     static {
         isInMMClassic = false;
     }

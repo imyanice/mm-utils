@@ -12,17 +12,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.weavemc.loader.api.event.RenderWorldEvent;
-import net.weavemc.loader.api.event.SubscribeEvent;
-import net.weavemc.loader.api.event.TickEvent;
+
+import net.weavemc.api.event.SubscribeEvent;
+import net.weavemc.api.TickEvent;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
+
 import me.yanjobs.mmutils.utils.mm.KnifeSkins;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import net.weavemc.api.RenderWorldEvent;
 
 public class MurdererFinder {
     public static ArrayList<String> murderers;
@@ -36,20 +40,26 @@ public class MurdererFinder {
 
     @SubscribeEvent
     public void renderMurdererHitbox(RenderWorldEvent event) throws IOException {
-        if (!MMUtils.isInMMClassic) return;
-        if (!Boolean.parseBoolean(MMUtils.getConfig().getProperty("enabled"))) return;;
+        if (!MMUtils.isInMMClassic)
+            return;
+        if (!Boolean.parseBoolean(MMUtils.getConfig().getProperty("enabled")))
+            return;
+        
         final List<String> playerList = getOnlinePlayersByName();
         for (String s : playerList) {
             final EntityPlayer player = Minecraft.getMinecraft().theWorld.getPlayerEntityByName((String) s);
             if (player != null && player != Minecraft.getMinecraft().thePlayer) {
                 GlStateManager.disableDepth();
-                renderHitBox((Entity) player, new Color(255, 255, 255), (float) (10 / Math.sqrt(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(player))), event.getPartialTicks());
+                renderHitBox((Entity) player, new Color(255, 255, 255),
+                        (float) (10 / Math.sqrt(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(player))),
+                        event.getPartialTicks());
                 GlStateManager.enableDepth();
 
             }
 
             // Murderer
-            if (player != null && player.getHeldItem() != null && player.getHeldItem().getItem() != null && KnifeSkins.isItemKnifeSkin(player.getHeldItem().getItem())) {
+            if (player != null && player.getHeldItem() != null && player.getHeldItem().getItem() != null
+                    && KnifeSkins.isItemKnifeSkin(player.getHeldItem().getItem())) {
                 boolean isInList = false;
                 for (int x = 0; x < MurdererFinder.murderers.size(); ++x) {
                     if (MurdererFinder.murderers.get(x) == player.getName() && MurdererFinder.murderers.size() > 0) {
@@ -65,17 +75,21 @@ public class MurdererFinder {
                 }
             }
             for (int y = 0; y < MurdererFinder.murderers.size(); ++y) {
-                final EntityPlayer murderer = Minecraft.getMinecraft().theWorld.getPlayerEntityByName((String) MurdererFinder.murderers.get(y));
+                final EntityPlayer murderer = Minecraft.getMinecraft().theWorld
+                        .getPlayerEntityByName((String) MurdererFinder.murderers.get(y));
                 if (murderer != null) {
                     GlStateManager.disableDepth();
-                    renderHitBox((Entity) murderer, new Color(255, 55, 55), (float) (10 / Math.sqrt(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(murderer))), event.getPartialTicks());
+                    renderHitBox((Entity) murderer, new Color(255, 55, 55),
+                            (float) (10 / Math.sqrt(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(murderer))),
+                            event.getPartialTicks());
 
                     GlStateManager.enableDepth();
                 }
             }
 
             // Detectives
-            if (player != null && player.getHeldItem() != null && player.getHeldItem().getItem() != null && player.getHeldItem().getItem() == Items.bow) {
+            if (player != null && player.getHeldItem() != null && player.getHeldItem().getItem() != null
+                    && player.getHeldItem().getItem() == Items.bow) {
                 boolean isInList = false;
                 for (int x = 0; x < MurdererFinder.detectives.size(); ++x) {
                     if (MurdererFinder.detectives.get(x) == player.getName() && MurdererFinder.detectives.size() > 0) {
@@ -89,10 +103,13 @@ public class MurdererFinder {
                 }
             }
             for (int y = 0; y < MurdererFinder.detectives.size(); ++y) {
-                final EntityPlayer detective = Minecraft.getMinecraft().theWorld.getPlayerEntityByName((String) MurdererFinder.detectives.get(y));
+                final EntityPlayer detective = Minecraft.getMinecraft().theWorld
+                        .getPlayerEntityByName((String) MurdererFinder.detectives.get(y));
                 if (detective != null) {
                     GlStateManager.disableDepth();
-                    renderHitBox((Entity) detective, new Color(0, 255, 255), (float) (10/Minecraft.getMinecraft().thePlayer.getDistanceToEntity(detective)), event.getPartialTicks());
+                    renderHitBox((Entity) detective, new Color(0, 255, 255),
+                            (float) (10 / Minecraft.getMinecraft().thePlayer.getDistanceToEntity(detective)),
+                            event.getPartialTicks());
                     GlStateManager.enableDepth();
                 }
             }
@@ -103,7 +120,9 @@ public class MurdererFinder {
         for (Entity e : entityList) {
             if (e instanceof EntityItem && ((EntityItem) e).getEntityItem().getItem() == Items.gold_ingot) {
                 GlStateManager.disableDepth();
-                renderHitBox(e, new Color(238, 188, 29), (float) (10 / Minecraft.getMinecraft().thePlayer.getDistanceToEntity(e)), event.getPartialTicks()) ;
+                renderHitBox(e, new Color(238, 188, 29),
+                        (float) (10 / Minecraft.getMinecraft().thePlayer.getDistanceToEntity(e)),
+                        event.getPartialTicks());
                 GlStateManager.enableDepth();
             }
         }
@@ -125,9 +144,11 @@ public class MurdererFinder {
         MurdererFinder.murderers = new ArrayList<String>();
         MurdererFinder.detectives = new ArrayList<String>();
     }
+
     public static List<String> getOnlinePlayersByName() {
         final ArrayList<String> players = new ArrayList<String>();
-        final Collection<NetworkPlayerInfo> playerCollection = (Collection<NetworkPlayerInfo>)Minecraft.getMinecraft().getNetHandler().getPlayerInfoMap();
+        final Collection<NetworkPlayerInfo> playerCollection = (Collection<NetworkPlayerInfo>) Minecraft.getMinecraft()
+                .getNetHandler().getPlayerInfoMap();
         for (final NetworkPlayerInfo networkPlayerInfo : playerCollection) {
             final String playerName = networkPlayerInfo.getGameProfile().getName();
             if (playerName != null) {
@@ -136,15 +157,20 @@ public class MurdererFinder {
         }
         return players;
     }
-    public static void renderHitBox(final Entity entityIn, final Color color, final float lineWidth, final float partialTicks) {
+
+    public static void renderHitBox(final Entity entityIn, final Color color, final float lineWidth,
+            final float partialTicks) {
         if (entityIn.ticksExisted == 0) {
             entityIn.lastTickPosX = entityIn.posX;
             entityIn.lastTickPosY = entityIn.posY;
             entityIn.lastTickPosZ = entityIn.posZ;
         }
-        final double x = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks - Minecraft.getMinecraft().getRenderManager().viewerPosX;
-        final double y = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks - Minecraft.getMinecraft().getRenderManager().viewerPosY;
-        final double z = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks - Minecraft.getMinecraft().getRenderManager().viewerPosZ;
+        final double x = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks
+                - Minecraft.getMinecraft().getRenderManager().viewerPosX;
+        final double y = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks
+                - Minecraft.getMinecraft().getRenderManager().viewerPosY;
+        final double z = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks
+                - Minecraft.getMinecraft().getRenderManager().viewerPosZ;
         GlStateManager.pushMatrix();
         GlStateManager.depthMask(false);
         GlStateManager.disableTexture2D();
@@ -152,13 +178,15 @@ public class MurdererFinder {
         GlStateManager.disableBlend();
         GL11.glLineWidth(lineWidth);
         if (entityIn instanceof EntityPlayer) {
-            final AxisAlignedBB axisalignedbb = new AxisAlignedBB(x - 0.5, y, z - 0.5, x + 0.5, y + entityIn.height, z + 0.5);
+            final AxisAlignedBB axisalignedbb = new AxisAlignedBB(x - 0.5, y, z - 0.5, x + 0.5, y + entityIn.height,
+                    z + 0.5);
             RenderGlobal.drawOutlinedBoundingBox(axisalignedbb, color.getRed(), color.getGreen(), color.getBlue(), 255);
-        }
-        else {
+        } else {
             final float width = entityIn.width / 2.0f;
-            final AxisAlignedBB axisalignedbb2 = new AxisAlignedBB(x - width, y, z - width, x + width, y + entityIn.height, z + width);
-            RenderGlobal.drawOutlinedBoundingBox(axisalignedbb2, color.getRed(), color.getGreen(), color.getBlue(), 255);
+            final AxisAlignedBB axisalignedbb2 = new AxisAlignedBB(x - width, y, z - width, x + width,
+                    y + entityIn.height, z + width);
+            RenderGlobal.drawOutlinedBoundingBox(axisalignedbb2, color.getRed(), color.getGreen(), color.getBlue(),
+                    255);
         }
         GlStateManager.enableTexture2D();
         GlStateManager.enableCull();

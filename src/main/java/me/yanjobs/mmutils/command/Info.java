@@ -1,17 +1,17 @@
 package me.yanjobs.mmutils.command;
 
+import me.yanjobs.mmutils.MMUtils;
 import me.yanjobs.mmutils.utils.chat.Message;
-import net.weavemc.loader.api.command.Command;
 import org.jetbrains.annotations.NotNull;
 
-public class Info extends Command {
-    public Info() {
-        super("mmhelp");
-    }
+public class Info {
+    public static final String name = "mmhelp";
 
-    @Override
-    public void handle(@NotNull String[] args) {
+    public static void handle(@NotNull String[] args) {
+        Message.sendMessage("", Message.LEVEL.Log);
+        Message.sendMessage("Murder Mytery Utils v" + MMUtils.VERSION, Message.LEVEL.Log);
         Message.sendMessage("Toggle: /mmtoggle", Message.LEVEL.Log);
-        Message.sendMessage("Creator: imyanice, GitHub: Yan-Jobs", Message.LEVEL.Log);
+        Message.sendMessage("made by imyanice!", Message.LEVEL.Log);
+        Message.sendMessage("", Message.LEVEL.Log);
     }
 }
