@@ -11,7 +11,7 @@ public class Info {
         Message.sendMessage("", Message.LEVEL.Log);
         Message.sendMessage("Murder Mytery Utils v" + MMUtils.VERSION, Message.LEVEL.Log);
         Message.sendMessage("Toggle: /mmtoggle", Message.LEVEL.Log);
-        Message.sendMessage("made by imyanice!", Message.LEVEL.Log);
+        Message.sendMessage("made by yanice https://discord.gg/lilith!", Message.LEVEL.Log);
         Message.sendMessage("", Message.LEVEL.Log);
     }
 }

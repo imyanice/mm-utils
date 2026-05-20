@@ -3,11 +3,11 @@ package me.yanjobs.mmutils.events;
 import net.weavemc.api.event.SubscribeEvent;
 import me.yanjobs.mmutils.command.Info;
 import me.yanjobs.mmutils.command.MMToggle;
-import net.weavemc.api.ChatSentEvent;
+import net.weavemc.api.event.ChatEvent;
 
 public class ChatSent {
     @SubscribeEvent
-    public void handle(ChatSentEvent event) {
+    public void handle(ChatEvent.Sent event) {
         String message = event.getMessage();
         String[] args = message.split(" ");
         if (args[0].toLowerCase().equals("/mmtoggle")) {

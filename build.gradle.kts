@@ -1,9 +1,9 @@
 plugins {
-    id("net.weavemc.gradle") version "1.1.0"
+    id("net.weavemc.gradle") version "1.3.0"
 }
 
 group = "me.yanjobs.mmutils"
-version = "2.0.0"
+version = "2.1.0"
 
 weave {
     configure {
@@ -20,10 +20,10 @@ repositories {
 }
 
 dependencies {
-    implementation("net.weavemc:loader:1.1.0")
-    implementation("net.weavemc:internals:1.1.0")
-    implementation("net.weavemc.api:api:1.1.0")
-    implementation("net.weavemc.api:api-v1_8:1.1.0")
+    implementation("net.weavemc:loader:1.3.0")
+    implementation("net.weavemc:internals:1.3.0")
+    implementation("net.weavemc.api:api:1.3.0")
+    implementation("net.weavemc.api:api-v1_8:1.3.0")
 
     compileOnly("org.spongepowered:mixin:0.8.5")
 }

@@ -1,13 +1,13 @@
 package me.yanjobs.mmutils.events;
 
 import me.yanjobs.mmutils.MMUtils;
-import net.weavemc.api.ChatReceivedEvent;
+import net.weavemc.api.event.ChatEvent;
 import net.weavemc.api.event.SubscribeEvent;
 
 public class ChatReceived {
 
     @SubscribeEvent
-    public void onChatMessage(ChatReceivedEvent event) {
+    public void onChatMessage(ChatEvent.Received event) {
         if (event.getMessage().getUnformattedText().equals("Teaming with the Murderer is not allowed!")) {
             MMUtils.isInMMClassic = true;
         }

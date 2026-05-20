@@ -14,7 +14,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import net.weavemc.api.event.SubscribeEvent;
-import net.weavemc.api.TickEvent;
+import net.weavemc.api.event.TickEvent;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.weavemc.api.RenderWorldEvent;
+import net.weavemc.api.event.RenderWorldEvent;
 
 public class MurdererFinder {
     public static ArrayList<String> murderers;
@@ -44,7 +44,7 @@ public class MurdererFinder {
             return;
         if (!Boolean.parseBoolean(MMUtils.getConfig().getProperty("enabled")))
             return;
-        
+
         final List<String> playerList = getOnlinePlayersByName();
         for (String s : playerList) {
             final EntityPlayer player = Minecraft.getMinecraft().theWorld.getPlayerEntityByName((String) s);
