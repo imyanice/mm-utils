@@ -17,6 +17,7 @@ public class Config {
 
     public void createConfigFile() throws IOException {
         if (Files.notExists(configPath)) {
+            Files.createDirectories(configPath.getParent());
             Files.createFile(configPath);
             Files.write(configPath, defaultConfig.getBytes());
         }
