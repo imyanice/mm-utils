@@ -1,14 +1,16 @@
 package me.yanjobs.mmutils;
 
+import me.yanjobs.mmutils.command.MMHelpCommand;
+import me.yanjobs.mmutils.command.MMToggleCommand;
 import me.yanjobs.mmutils.events.ChatReceived;
-import me.yanjobs.mmutils.events.ChatSent;
 import me.yanjobs.mmutils.events.MurdererFinder;
 import me.yanjobs.mmutils.utils.config.Config;
+import net.weavemc.api.ModInitializer;
+import net.weavemc.api.command.CommandBus;
+import net.weavemc.api.event.EventBus;
+import net.weavemc.api.event.StartGameEvent;
 
 import java.io.IOException;
-
-import net.weavemc.api.ModInitializer;
-import net.weavemc.api.event.EventBus;
 
 public class MMUtils implements ModInitializer {
     public static boolean isInMMClassic;
@@ -17,16 +19,21 @@ public class MMUtils implements ModInitializer {
 
     @Override
     public void init() {
-        System.out.println("MMUtils v" + VERSION + " successfully loaded!");
-        EventBus.subscribe(new MurdererFinder());
-        EventBus.subscribe(new ChatReceived());
-        EventBus.subscribe(new ChatSent());
-        try {
-            config = new Config();
-            config.createConfigFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        EventBus.subscribe(StartGameEvent.Post.class, (event) -> {
+            System.out.println("MMUtils v" + VERSION + " successfully loaded!");
+            EventBus.subscribe(new MurdererFinder());
+            EventBus.subscribe(new ChatReceived());
+            CommandBus.register(
+                    new MMHelpCommand(),
+                    new MMToggleCommand()
+            );
+            try {
+                config = new Config();
+                config.createConfigFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public static Config getConfig() {

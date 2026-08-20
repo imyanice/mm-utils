@@ -2,14 +2,20 @@ package me.yanjobs.mmutils.command;
 
 import me.yanjobs.mmutils.MMUtils;
 import me.yanjobs.mmutils.utils.chat.Message;
+import net.weavemc.api.command.Command;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class MMToggle {
+public class MMToggleCommand extends Command {
     public static final String name = "mmtogggle";
 
-    public static void handle(@NotNull String[] args) {
+    public MMToggleCommand() {
+        super(name);
+    }
+
+    @Override
+    public void execute(@NotNull String[] strings) {
         try {
             boolean isEnabled = Boolean.parseBoolean(MMUtils.getConfig().getProperty("enabled"));
             MMUtils.getConfig().setProperty("enabled", String.valueOf(!isEnabled));
