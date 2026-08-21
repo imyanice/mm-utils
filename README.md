@@ -18,3 +18,7 @@ Use Weave-Manager to download MMUtils (might not be on the store atm, please use
 - Get Weave-Manager from [here](https://github.com/Weave-MC/Weave-Manager/releases/latest).
 - Get MMUtils from [here](https://github.com/Yan-Jobs/mm-utils/releases/latest).
 - Launch using Weave-Manger
+
+### Usage
+- `/mmhelp`
+- `/mmtoggle`
